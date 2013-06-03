@@ -52,7 +52,8 @@ class StompHandler extends AbstractHandler
             $stomp->clientId = $this->stompclientid;
             $stomp->connect();
         } catch(StompException $e) {
-            throw new \InvalidArgumentException($e->getMessage());
+            $this->errors[] = $e->getMessage();
+            return null;
         }
         return $stomp;
 	}
@@ -60,9 +61,13 @@ class StompHandler extends AbstractHandler
     private function sendStomp(MessageInterface $message, RecipientInterface $recipient)
     {
         $stomp = $this->connectSTOMP();
-        $frame = new Frame('SEND', $this->stompheaders, $message->getContent());
-        $res = $stomp->send('/queue/' . $this->stompdestination, $frame, array(), true);
-        return $res;
+        if ($stamp) {
+            $frame = new Frame('SEND', $this->stompheaders, $message->getContent());
+            $res = $stomp->send('/queue/' . $this->stompdestination, $frame, array(), true);
+            return $res;
+        } else {
+            return false;
+        }
     }
 
     public function setStompHeaders($headers = array())
