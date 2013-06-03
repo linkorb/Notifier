@@ -12,6 +12,7 @@ use Notifier\Notifier;
 use Notifier\Message\MessageInterface;
 use Notifier\Recipient\RecipientInterface;
 use FuseSource\Stomp\Stomp;
+use FuseSource\Stomp\Exception\StompException;
 use FuseSource\Stomp\Frame;
 
 class StompHandler extends AbstractHandler
