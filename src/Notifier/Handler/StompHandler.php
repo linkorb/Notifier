@@ -62,7 +62,7 @@ class StompHandler extends AbstractHandler
     private function sendStomp(MessageInterface $message, RecipientInterface $recipient)
     {
         $stomp = $this->connectSTOMP();
-        if ($stamp) {
+        if ($stomp) {
             $frame = new Frame('SEND', $this->stompheaders, $message->getContent());
             $res = $stomp->send('/queue/' . $this->stompdestination, $frame, array(), true);
             return $res;
